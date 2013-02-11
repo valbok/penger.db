@@ -11,18 +11,36 @@ from abc import ABCMeta, abstractmethod
 import zope.interface
 import MySQLdb
 
+"""
+" Abstract and base object.
+" Implements basic functionality to fetch and store data to DB using db module
+"""
 class PersistentObject( object ):
     __metaclass__ = ABCMeta
     zope.interface.implements( IPersistentObject )
 
+    """
+    " @param (dict) Dictionary of fields. Key - field name, Value - field's value
+    """
     def __init__( self, list = {} ):
         self._fieldList = list
 
+    """
+    " Clears any assigned fields
+    "
+    " @return (self)
+    """
     def _clear( self ):
        self._fieldList = {}
 
        return self
 
+    """
+    " Main point to fetch data from database.
+    "
+    " @param (string) where String condition
+    " @return (list) List of instances of needed classes
+    """
     def fetchObjectList( self, where = None, limit = None, offset = None ):
         dTable = self._definition.table
         dKeys = self._definition.keys
@@ -57,11 +75,19 @@ class PersistentObject( object ):
 
         return result
 
+    """
+    " Wrapper to fetch only one object by condition
+    "
+    " @return (__CLASS__) An innstance of needed class
+    """
     def fetchObject( self, where = None ):
         l = self.fetchObjectList( where, limit = 1 )
 
         return l[0] if len( l ) > 0 else None
 
+    """
+    " @implements( IPersistentObject )
+    """
     def getAttribute( self, name ):
         try:
             v = self._fieldList[name]
@@ -70,15 +96,24 @@ class PersistentObject( object ):
 
         return v;
 
+    """
+    " @implements( IPersistentObject )
+    """
     def setAttribute( self, name, value ):
         self._fieldList[name] = value
 
         return self;
 
-
+    """
+    " @implements( IPersistentObject )
+    """
     def attr( self, name, value = None ):
         return self.setAttribute( name, value ) if value else self.getAttribute( name )
 
+    """
+    " @implements( IPersistentObject )
+    " @note Transaction unsafe
+    """
     def insert( self ):
         dTable = self._definition.table
         dKeys = self._definition.keys
@@ -86,7 +121,7 @@ class PersistentObject( object ):
         fieldList = dict( self._fieldList )
 
         if not fieldList:
-            return
+            return self
 
         db = DB.get()
         cur = db.cursor()
@@ -103,11 +138,33 @@ class PersistentObject( object ):
         sql = "INSERT INTO {} ({}) VALUES ({})".format( dTable, fields, values )
         cur.execute( sql )
         lastid = cur.lastrowid
-        if dInc:
+        if dInc and lastid:
             self.setAttribute( dInc, lastid )
         cur.close()
 
         return self
 
+    """
+    " @implements( IPersistentObject )
+    " @note Transaction unsafe
+    """
     def update( self ):
-        pass
+        dTable = self._definition.table
+        dKeys = self._definition.keys
+        dInc = self._definition.incrementField
+        fieldList = dict( self._fieldList )
+        if not fieldList:
+            return self
+
+        db = DB.get()
+        cur = db.cursor()
+
+        kList = fieldList.keys()
+        values = ", ".join( [ '%s="%s"' % ( k, v ) for ( k, v ) in fieldList.items() ] )
+        where = ""
+        for k in dKeys:
+            where += k + "=\"" + str( fieldList[k] ) + "\""
+
+        sql = "UPDATE {} SET {} WHERE {}".format( dTable, values, where )
+        cur.execute( sql )
+        cur.close()

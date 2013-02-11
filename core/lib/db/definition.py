@@ -4,7 +4,16 @@
 " @license GNU GPL v2
 """
 
+"""
+" Class to define meta data about objects
+"""
 class Definition( object ):
+
+    """
+    " @param (string) table Name of table
+    " @param (list) keys List of keys which will be used to store object
+    " @param (string) incrementField Name of increment field to skip it from inserts
+    """
     def __init__( self, table, keys, incrementField = None ):
         self._table = table
         self._keys = keys
