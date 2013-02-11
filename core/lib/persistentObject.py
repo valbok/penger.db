@@ -7,16 +7,15 @@
 import copy
 from interfaces import *
 from db import *
-from abc import ABCMeta, abstractmethod
 import zope.interface
 import MySQLdb
 
 """
 " Abstract and base object.
-" Implements basic functionality to fetch and store data to DB using db module
+" Should not be instantiated directly.
+" Implements basic functionality to fetch and store data to DB using db module.
 """
 class PersistentObject( object ):
-    __metaclass__ = ABCMeta
     zope.interface.implements( IPersistentObject )
 
     """
