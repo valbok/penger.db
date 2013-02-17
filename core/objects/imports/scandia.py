@@ -19,23 +19,23 @@ class Scandia( CsvImport ):
     def process( self, userID ):
         first = True
         result = []
-
+        i = 0
         for r in self.transactions:
-            if first:
-                first = False
+            i = i + 1
+            if i <= 3:
                 continue
-
+            print r
             try:
-                c = float( r[2].replace( ",", "." ) )
+                c = float( r[5].replace( ",", "." ) )
             except ValueError:
                 c = 0
-
+            print c
             try:
-                d = float( r[3].replace( ",", "." ) )
+                d = float( r[6].replace( ",", "." ) )
             except ValueError:
                 d = 0;
 
-            t = Transaction( { 'date': r[0], 'description': r[1], 'credit': str( c ), 'debit': str( d ) } )
+            t = Transaction( { 'user_id': userID, 'date': r[1], 'description': r[4], 'credit': str( c ), 'debit': str( d ) } )
             if t.exists():
                 continue
 
