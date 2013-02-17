@@ -13,9 +13,9 @@ import csv
 import argparse
 from core import *
 
-parser = argparse.ArgumentParser( description='Process some integers.' )
+parser = argparse.ArgumentParser( description='Import transactions.' )
 parser.add_argument( 'path', metavar = 'f', type = str, help = 'Path to csv file' )
-parser.add_argument( '--type', type = str, default = "sbm",  help='Type of import: sbm or scandia' )
+parser.add_argument( '--type', type = str, default = "sbm", help = 'Type of import: sbm or scandia' )
 
 args = parser.parse_args()
 path = args.path
