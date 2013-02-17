@@ -9,6 +9,7 @@ from interfaces import *
 from db import *
 import zope.interface
 import MySQLdb
+import re
 
 """
 " Abstract and base object.
@@ -45,7 +46,7 @@ class PersistentObject( object ):
         dKeys = self._definition.keys
         dInc = self._definition.incrementField
         sql = "SELECT * FROM {}".format( dTable )
-        if where != None:
+        if where != None and len( where ) > 0:
             sql += " WHERE " + where
 
         if limit != None:
@@ -83,6 +84,24 @@ class PersistentObject( object ):
         l = self.fetchObjectList( where, limit = 1 )
 
         return l[0] if len( l ) > 0 else None
+
+    """
+    " Wrapper to fetch only one object by increment field
+    "
+    " @return (__CLASS__) An innstance of needed class
+    """
+    def _fetchObjectByIncrementField( self, v ):
+        where = self._getIncrementField() + '="' + re.escape( str( v ) ) + '"'
+
+        return self.fetchObject( where )
+
+    """
+    " Returns incement field if exists
+    "
+    " @return (str)
+    """
+    def _getIncrementField( self ):
+        return self._definition.incrementField
 
     """
     " @implements( IPersistentObject )
@@ -162,8 +181,65 @@ class PersistentObject( object ):
         values = ", ".join( [ '%s="%s"' % ( k, v ) for ( k, v ) in fieldList.items() ] )
         where = ""
         for k in dKeys:
-            where += k + "=\"" + str( fieldList[k] ) + "\""
+            where += k + "=\"" + re.escape( str( fieldList[k] ) ) + "\""
 
         sql = "UPDATE {} SET {} WHERE {}".format( dTable, values, where )
         cur.execute( sql )
         cur.close()
+
+    """
+    " Returns WHERE condition to check if current object exists in table
+    "
+    " @return (bool)
+    """
+    def _getExistCondition( self ):
+        dKeys = self._definition.keys
+        fieldList = dict( self._fieldList )
+        where = []
+
+        for k in dKeys:
+            try:
+                v = fieldList[k]
+            except KeyError:
+                continue
+
+            where.append( k + "=\"" + re.escape( str( fieldList[k] ) ) + "\"" )
+
+        return " AND ".join( where ) if len( where ) else ""
+
+    """
+    " Checks if current object has been stored
+    "
+    " @return (bool)
+    """
+    def exists( self ):
+        w = self._getExistCondition()
+        if not len( w ):
+            return False
+
+        o = self.fetchObject( w )
+        return bool( o )
+
+    """
+    " Wrapper to check if value is int
+    "
+    " @return (bool)
+    """
+    @staticmethod
+    def _isInt( value ):
+        if value == None:
+            return False
+
+        try:
+            int( value )
+            return True
+        except ValueError:
+            return False
+
+    """
+    " Checks if data has been assigned
+    "
+    " @return (bool)
+    """
+    def hasFields( self ):
+        return bool( len( self._fieldList ) )

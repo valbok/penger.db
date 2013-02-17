@@ -4,6 +4,6 @@
 " @license GNU GPL v2
 """
 
-from transaction import *
-from user import *
-from imports import *
+from csvimport import *
+from sbm import *
+from scandia import *
