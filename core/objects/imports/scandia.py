@@ -24,7 +24,6 @@ class Scandia( CsvImport ):
             i = i + 1
             if i <= 3:
                 continue
-            print r
             try:
                 c = float( r[5].replace( ",", "." ) )
             except ValueError:
