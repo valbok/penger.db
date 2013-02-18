@@ -16,6 +16,11 @@ sys.path.append( "../../" )
 
 from core import *
 from init import *
+"""db = DB.get()
+db.begin()
+t = Transaction( { 'user_id': 1, 'date': 0, 'description': "Balance to 0", 'payment': "{0:.2f}".format( Transaction.fetchBalance() )  } )
+t.insert()
+db.commit()"""
 
 parser = argparse.ArgumentParser( description = 'Filters' )
 parser.add_argument( '--from_date', type = str, default = None, help = 'Date from' )
@@ -38,12 +43,13 @@ kinc = inc.keys()
 kout.sort()
 kinc.sort()
 
-totalChanrges = 0
-totalIncome = 0
+totalCharges = Transaction.fetchTotalCharges( f, e )
+totalIncome = Transaction.fetchTotalIncome( f, e )
+
+balanceList = []
 
 for i in kout:
     d = datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" )
-    totalChanrges += out[i]
     print d + " = " + str( out[i] )
     ox.append( d )
     oy.append( out[i] )
@@ -52,7 +58,10 @@ for i in kout:
 
     ix.append( d )
     iy.append( inc[i] )
-    totalIncome += inc[i]
+
+    bb = Transaction.fetchBalance( endTS = i )
+    print "\tbalance = " + str( bb )
+    balanceList.append( bb )
 
 N = len( ox )
 def format_date( xx, pos = None ):
@@ -61,10 +70,12 @@ def format_date( xx, pos = None ):
 
 fig = plt.figure( "Balance" )
 ax = fig.add_subplot( 111 )
-ax.plot( oy )
-ax.plot( iy )
+p1, = ax.plot( oy )
+p2, = ax.plot( iy )
+p3, = ax.plot( balanceList )
+ax.legend( [p3, p2, p1], ["Balance", "Income", "Charge"] )
 
-ax.set_title( "{0:.2f}".format( totalIncome ) + " - " + "{0:.2f}".format( totalChanrges ) + " = " + "{0:.2f}".format( totalIncome - totalChanrges ) + ' NOK' )
+ax.set_title( "{0:.2f}".format( totalIncome ) + " - " + "{0:.2f}".format( totalCharges ) + " = " + "{0:.2f}".format( totalIncome - totalCharges ) + ' NOK' )
 ax.grid( True )
 #ax.set_xlabel( 'date' )
 ax.set_ylabel( 'NOK' )

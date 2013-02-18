@@ -111,7 +111,6 @@ class Transaction( PersistentObject ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = None
         where = " WHERE payment > 0 "
         if beginTS != None:
             where += " AND date >= " + str( beginTS )
@@ -120,7 +119,6 @@ class Transaction( PersistentObject ):
             where += " AND date <= " + str( endTS )
 
         sql = "SELECT date, sum( payment ) as result FROM {} {} GROUP BY date ORDER BY date ASC".format( dTable, where )
-        print sql
         db = DB.get()
         cur = db.cursor()
         cur.execute( sql )
@@ -129,3 +127,95 @@ class Transaction( PersistentObject ):
             result[i[0]] = i[1]
 
         return result
+
+    """
+    " Fetches total income
+    "
+    " @param (int)
+    " @param (int)
+    "
+    " @return (float)
+    """
+    @staticmethod
+    def fetchTotalIncome( beginTS = None, endTS = None ):
+        result = {}
+        dTable = Transaction()._definition.table
+
+        where = " WHERE payment > 0 "
+        if beginTS != None:
+            where += " AND date >= " + str( beginTS )
+
+        if endTS != None:
+            where += " AND date <= " + str( endTS )
+
+        sql = "SELECT sum( payment ) as result FROM {} {}".format( dTable, where )
+        db = DB.get()
+        cur = db.cursor()
+        cur.execute( sql )
+        rows = cur.fetchall()
+
+        return rows[0][0]
+
+    """
+    " Fetches total outcome
+    "
+    " @param (int)
+    " @param (int)
+    "
+    " @return (float)
+    """
+    @staticmethod
+    def fetchTotalCharges( beginTS = None, endTS = None ):
+        result = {}
+        dTable = Transaction()._definition.table
+
+        where = " WHERE payment < 0 "
+        if beginTS != None:
+            where += " AND date >= " + str( beginTS )
+
+        if endTS != None:
+            where += " AND date <= " + str( endTS )
+
+        sql = "SELECT sum( payment ) as result FROM {} {}".format( dTable, where )
+
+        db = DB.get()
+        cur = db.cursor()
+        cur.execute( sql )
+        rows = cur.fetchall()
+
+        return abs( rows[0][0] )
+
+    """
+    " Fetches total outcome
+    "
+    " @param (int)
+    " @param (int)
+    "
+    " @return (float)
+    """
+    @staticmethod
+    def fetchBalance( beginTS = None, endTS = None ):
+        result = {}
+        dTable = Transaction()._definition.table
+
+        where = None
+        if beginTS != None:
+            where = " date >= " + str( beginTS )
+
+        if endTS != None:
+            where = " AND date <= " + str( endTS ) if where != None else " date <= " + str( endTS )
+
+        if where != None:
+            where = " WHERE " + where
+
+        if where == None:
+            where = ""
+
+        sql = "SELECT sum( payment ) as result FROM {} {}".format( dTable, where )
+
+        db = DB.get()
+        cur = db.cursor()
+        cur.execute( sql )
+        rows = cur.fetchall()
+
+        return rows[0][0]

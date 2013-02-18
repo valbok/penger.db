@@ -23,7 +23,9 @@ class PersistentObject( object ):
     " @param (dict) Dictionary of fields. Key - field name, Value - field's value
     """
     def __init__( self, list = {} ):
-        self._fieldList = list
+        self._fieldList = {}
+        for i in list:
+            self.setAttribute( i, list[i] )
 
     """
     " Clears any assigned fields
@@ -94,7 +96,7 @@ class PersistentObject( object ):
     " @return (__CLASS__) An innstance of needed class
     """
     def _fetchObjectByIncrementField( self, v ):
-        where = self._getIncrementField() + '="' + re.escape( str( v ) ) + '"'
+        where = self._getIncrementField() + '="' + self.escapeString( str( v ) ) + '"'
 
         return self.fetchObject( where )
 
@@ -121,6 +123,10 @@ class PersistentObject( object ):
     " @implements( IPersistentObject )
     """
     def setAttribute( self, name, value ):
+        name = self.escapeString( str( name ) )
+        if isinstance( value, str ):
+            value = self.escapeString( value )
+
         self._fieldList[name] = value
 
         return self;
@@ -184,7 +190,7 @@ class PersistentObject( object ):
         values = ", ".join( [ '%s="%s"' % ( k, v ) for ( k, v ) in fieldList.items() ] )
         where = ""
         for k in dKeys:
-            where += k + "=\"" + re.escape( str( fieldList[k] ) ) + "\""
+            where += k + "=\"" + str( fieldList[k] ) + "\""
 
         sql = "UPDATE {} SET {} WHERE {}".format( dTable, values, where )
         cur.execute( sql )
@@ -206,7 +212,7 @@ class PersistentObject( object ):
             except KeyError:
                 continue
 
-            where.append( k + "=\"" + re.escape( str( fieldList[k] ) ) + "\"" )
+            where.append( k + "=\"" + str( fieldList[k] ) + "\"" )
 
         return " AND ".join( where ) if len( where ) else ""
 
@@ -246,3 +252,15 @@ class PersistentObject( object ):
     """
     def hasFields( self ):
         return bool( len( self._fieldList ) )
+
+
+    """
+    " Escapes characters to prevent sql inj
+    "
+    " @return (str)
+    """
+    @staticmethod
+    def escapeString( s ):
+        result = s.replace( "'", "\'" ).replace( "\"", "\\\"" )
+
+        return result
