@@ -16,11 +16,6 @@ sys.path.append( "../../" )
 
 from core import *
 from init import *
-"""db = DB.get()
-db.begin()
-t = Transaction( { 'user_id': 1, 'date': 0, 'description': "Balance to 0", 'payment': "{0:.2f}".format( Transaction.fetchBalance() )  } )
-t.insert()
-db.commit()"""
 
 parser = argparse.ArgumentParser( description = 'Filters' )
 parser.add_argument( '--from_date', type = str, default = None, help = 'Date from' )
@@ -34,6 +29,12 @@ ix = []
 
 f = parse( args.from_date ).strftime( '%s' ) if args.from_date != None else None
 e = parse( args.to_date ).strftime( '%s' ) if args.to_date != None else None
+
+if f != None:
+    print "From timestamp: " + str( f )
+
+if e != None:
+    print "To timestamp: " + str( e )
 
 out = Transaction.fetchChargeDateList( f, e )
 inc = Transaction.fetchIncomeDateList( f, e )
