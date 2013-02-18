@@ -16,10 +16,12 @@ from core import *
 parser = argparse.ArgumentParser( description='Import transactions.' )
 parser.add_argument( 'path', metavar = 'f', type = str, help = 'Path to csv file' )
 parser.add_argument( '--type', type = str, default = "sbm", help = 'Type of import: sbm or scandia' )
+parser.add_argument( '--user_id', type = str, default = "1", help = 'User ID' )
 
 args = parser.parse_args()
 path = args.path
 type = args.type
+userID = args.user_id
 
 try:
     if type == "sbm":
@@ -37,6 +39,6 @@ DB.init( db = "penger" )
 db = DB.get()
 db.begin()
 
-print "%s processed" % len( i.process( 1 ) );
+print "%s processed" % len( i.process( userID ) );
 
 db.commit()
