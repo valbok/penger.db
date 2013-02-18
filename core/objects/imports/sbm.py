@@ -25,22 +25,20 @@ class Sbm( CsvImport ):
                 first = False
                 continue
 
+            b = r[4]
             try:
-                c = float( r[2].replace( ",", "." ) )
+                b = float( b.replace( ",", "." ) )
             except ValueError:
-                c = 0
-
-            try:
-                d = float( r[3].replace( ",", "." ) )
-            except ValueError:
-                d = 0;
+                b = 0
 
             date = r[0] # dd.mm.yyyy
             edate = date.split( "." )
             if len( edate ) > 1:
-                date = edate[2] + "-" + edate[1] + "-" + edate[0]
+                date = edate[2] + "-" + edate[1] + "-" + edate[0] # yyyy-mm-dd
 
-            t = Transaction( { 'user_id': userID, 'date': date, 'description': r[1], 'credit': str( c ), 'debit': str( d ) } )
+            desc = r[3]
+
+            t = Transaction( { 'user_id': userID, 'date': date, 'description': desc, 'payment': str( b ) } )
             if t.exists():
                 continue
 

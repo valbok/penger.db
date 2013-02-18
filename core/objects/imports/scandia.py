@@ -24,6 +24,10 @@ class Scandia( CsvImport ):
             i = i + 1
             if i <= 3:
                 continue
+
+            if len( r ) == 0:
+                break
+
             try:
                 c = float( r[5].replace( ",", "." ) )
             except ValueError:
@@ -34,7 +38,8 @@ class Scandia( CsvImport ):
             except ValueError:
                 d = 0;
 
-            t = Transaction( { 'user_id': userID, 'date': r[1], 'description': r[4], 'credit': str( c ), 'debit': str( d ) } )
+            p = 0 - c if c > 0 else d
+            t = Transaction( { 'user_id': userID, 'date': r[0], 'description': r[4], 'payment': str( p ) } )
             if t.exists():
                 continue
 

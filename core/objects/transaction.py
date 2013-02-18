@@ -36,7 +36,7 @@ class Transaction( PersistentObject ):
     " @return (str)
     """
     def _createHash( self ):
-        v = str( self.attr( 'date' ) ) + str( self.attr( 'debit' ) ) + str( self.attr( 'credit' ) ) + self.attr( 'description' ) + str( self.attr( 'user_id' ) )
+        v = str( self.attr( 'date' ) ) + str( self.attr( 'payment' ) ) + self.attr( 'description' ) + str( self.attr( 'user_id' ) )
 
         return hashlib.md5( v ).hexdigest()
 
@@ -77,28 +77,24 @@ class Transaction( PersistentObject ):
     " @return (dict( ts: value ))
     """
     @staticmethod
-    def fetchDateCreditList( beginTS = None, endTS = None ):
+    def fetchChargeDateList( beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = None
+        where = " WHERE payment < 0 "
         if beginTS != None:
-            where = " date >= " + str( beginTS )
+            where += " AND date >= " + str( beginTS )
 
         if endTS != None:
-            where = " date <= " + str( endTS ) if where == None else where + " AND date <= " + str( endTS )
+            where += " AND date <= " + str( endTS )
 
-        if where != None:
-            where = "WHERE " + where
-
-        sql = "SELECT date, sum( credit ) as result FROM {} {} GROUP BY date ORDER BY date ASC".format( dTable, where )
-        print sql
+        sql = "SELECT date, sum( payment ) as result FROM {} {} GROUP BY date ORDER BY date ASC".format( dTable, where )
         db = DB.get()
         cur = db.cursor()
         cur.execute( sql )
         rows = cur.fetchall()
         for i in rows:
-            result[i[0]] = i[1]
+            result[i[0]] = abs( i[1] )
 
         return result
 
@@ -111,21 +107,19 @@ class Transaction( PersistentObject ):
     " @return (dict( ts: value ))
     """
     @staticmethod
-    def fetchDateDebitList( beginTS = None, endTS = None ):
+    def fetchIncomeDateList( beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
         where = None
+        where = " WHERE payment > 0 "
         if beginTS != None:
-            where = " date >= " + str( beginTS )
+            where += " AND date >= " + str( beginTS )
 
         if endTS != None:
-            where = " date <= " + str( endTS ) if where == None else where + " AND date <= " + str( endTS )
+            where += " AND date <= " + str( endTS )
 
-        if where != None:
-            where = "WHERE " + where
-
-        sql = "SELECT date, sum( debit ) as result FROM {} {} GROUP BY date ORDER BY date ASC".format( dTable, where )
+        sql = "SELECT date, sum( payment ) as result FROM {} {} GROUP BY date ORDER BY date ASC".format( dTable, where )
         print sql
         db = DB.get()
         cur = db.cursor()

@@ -15,42 +15,56 @@ import sys
 sys.path.append( "../../" )
 
 from core import *
-import init
+from init import *
 
 parser = argparse.ArgumentParser( description = 'Filters' )
 parser.add_argument( '--from_date', type = str, default = None, help = 'Date from' )
 parser.add_argument( '--to_date', type = str, default = None, help = 'Date to' )
 args = parser.parse_args()
 
-# Data for Y
-y = []
-# Data for X
-x = []
+oy = []
+ox = []
+iy = []
+ix = []
 
 f = parse( args.from_date ).strftime( '%s' ) if args.from_date != None else None
 e = parse( args.to_date ).strftime( '%s' ) if args.to_date != None else None
-l = Transaction.fetchIncomeDateList( f, e )
-kk = l.keys()
-# Dates sorted by ASC
-kk.sort()
-# What has been earned totally for period
-total = 0
 
-for i in kk:
-    total += l[i]
-    print datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" ) +" = " + str( l[i] )
-    x.append( datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" ) )
-    y.append( l[i] )
+out = Transaction.fetchChargeDateList( f, e )
+inc = Transaction.fetchIncomeDateList( f, e )
 
-N = len( x )
+kout = out.keys()
+kinc = inc.keys()
+kout.sort()
+kinc.sort()
+
+totalChanrges = 0
+totalIncome = 0
+
+for i in kout:
+    d = datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" )
+    totalChanrges += out[i]
+    print d + " = " + str( out[i] )
+    ox.append( d )
+    oy.append( out[i] )
+    if i not in inc:
+        inc[i] = 0
+
+    ix.append( d )
+    iy.append( inc[i] )
+    totalIncome += inc[i]
+
+N = len( ox )
 def format_date( xx, pos = None ):
     i = np.clip( int( xx + 0.5 ), 0, N - 1 )
-    return ( x[i] )
+    return ( ox[i] )
 
-fig = plt.figure( "Total income" )
-ax = fig.add_subplot(111)
-ax.plot( y )
-ax.set_title( "{0:.2f}".format( total ) + ' NOK' )
+fig = plt.figure( "Balance" )
+ax = fig.add_subplot( 111 )
+ax.plot( oy )
+ax.plot( iy )
+
+ax.set_title( "{0:.2f}".format( totalIncome ) + " - " + "{0:.2f}".format( totalChanrges ) + " = " + "{0:.2f}".format( totalIncome - totalChanrges ) + ' NOK' )
 ax.grid( True )
 #ax.set_xlabel( 'date' )
 ax.set_ylabel( 'NOK' )
