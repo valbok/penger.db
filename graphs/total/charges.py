@@ -34,10 +34,10 @@ kk = l.keys()
 # Dates sorted by ASC
 kk.sort()
 # What has been spent totally for period
-totalChanrges = 0
+totalCharges = 0
 
 for i in kk:
-    totalChanrges += l[i]
+    totalCharges += l[i]
     print datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" ) + " = " + str( l[i] )
     x.append( datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" ) )
     y.append( l[i] )
@@ -50,7 +50,7 @@ def format_date( xx, pos = None ):
 fig = plt.figure( "Total changes" )
 ax = fig.add_subplot( 111 )
 ax.plot( y )
-ax.set_title( "{0:.2f}".format( totalChanrges ) + ' NOK' )
+ax.set_title( "{0:.2f}".format( totalCharges ) + ' NOK' )
 ax.grid( True )
 #ax.set_xlabel( 'date' )
 ax.set_ylabel( 'NOK' )
