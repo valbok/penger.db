@@ -11,6 +11,9 @@
 import sys
 import csv
 import argparse
+
+sys.path.append( "../" )
+
 from core import *
 
 parser = argparse.ArgumentParser( description='Import transactions.' )

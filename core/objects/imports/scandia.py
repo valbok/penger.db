@@ -28,7 +28,7 @@ class Scandia( CsvImport ):
                 c = float( r[5].replace( ",", "." ) )
             except ValueError:
                 c = 0
-            print c
+
             try:
                 d = float( r[6].replace( ",", "." ) )
             except ValueError:

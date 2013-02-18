@@ -35,7 +35,12 @@ class Sbm( CsvImport ):
             except ValueError:
                 d = 0;
 
-            t = Transaction( { 'user_id': userID, 'date': r[0], 'description': r[1], 'credit': str( c ), 'debit': str( d ) } )
+            date = r[0] # dd.mm.yyyy
+            edate = date.split( "." )
+            if len( edate ) > 1:
+                date = edate[2] + "-" + edate[1] + "-" + edate[0]
+
+            t = Transaction( { 'user_id': userID, 'date': date, 'description': r[1], 'credit': str( c ), 'debit': str( d ) } )
             if t.exists():
                 continue
 
@@ -43,4 +48,3 @@ class Sbm( CsvImport ):
             result.append( t )
 
         return result
-

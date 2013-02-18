@@ -41,7 +41,7 @@ class PersistentObject( object ):
     " @param (string) where String condition
     " @return (list) List of instances of needed classes
     """
-    def fetchObjectList( self, where = None, limit = None, offset = None ):
+    def fetchObjectList( self, where = None, limit = None, offset = None, orderByDict = None ):
         dTable = self._definition.table
         dKeys = self._definition.keys
         dInc = self._definition.incrementField
@@ -49,9 +49,12 @@ class PersistentObject( object ):
         if where != None and len( where ) > 0:
             sql += " WHERE " + where
 
+        if orderByDict != None:
+            s = ", ".join( [ '%s %s' % ( k, v ) for ( k, v ) in orderByDict.items() ] )
+            sql += " ORDER BY " + s
+
         if limit != None:
             ls = " LIMIT "
-
             limit = str( limit )
             offset = str( offset ) if offset != None else None
             lss = ls + limit if offset == None else ls + offset + ", " + limit

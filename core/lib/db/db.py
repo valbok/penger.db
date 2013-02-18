@@ -25,6 +25,16 @@ class DB( object ):
     _instance = None
 
     """
+    "
+    """
+    ASC = "ASC"
+
+    """
+    "
+    """
+    DESC = "DESC"
+
+    """
     " @param (MySQLdb._mysql.connection) Stores database connection to current object
     """
     def __init__( self, db ):
