@@ -20,7 +20,10 @@ from init import *
 parser = argparse.ArgumentParser( description = 'Filters' )
 parser.add_argument( '--from_date', type = str, default = None, help = 'Date from' )
 parser.add_argument( '--to_date', type = str, default = None, help = 'Date to' )
+parser.add_argument( '--user_id', type = str, default = "1", help = 'User ID' )
+
 args = parser.parse_args()
+userID = args.user_id
 
 oy = []
 ox = []
@@ -36,16 +39,16 @@ if f != None:
 if e != None:
     print "To timestamp: " + str( e )
 
-out = Transaction.fetchChargeDateList( f, e )
-inc = Transaction.fetchIncomeDateList( f, e )
+out = Transaction.fetchChargeDateList( userID, f, e )
+inc = Transaction.fetchIncomeDateList( userID, f, e )
 
 kout = out.keys()
 kinc = inc.keys()
 kout.sort()
 kinc.sort()
 
-totalCharges = Transaction.fetchTotalCharges( f, e )
-totalIncome = Transaction.fetchTotalIncome( f, e )
+totalCharges = Transaction.fetchTotalCharges( userID, f, e )
+totalIncome = Transaction.fetchTotalIncome( userID, f, e )
 
 balanceList = []
 
@@ -60,7 +63,7 @@ for i in kout:
     ix.append( d )
     iy.append( inc[i] )
 
-    bb = Transaction.fetchBalance( endTS = i )
+    bb = Transaction.fetchBalance( userID, endTS = i )
     print "\tbalance = " + str( bb )
     balanceList.append( bb )
 

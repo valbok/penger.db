@@ -20,7 +20,10 @@ from init import *
 parser = argparse.ArgumentParser( description = 'Filters' )
 parser.add_argument( '--from_date', type = str, default = None, help = 'Date from' )
 parser.add_argument( '--to_date', type = str, default = None, help = 'Date to' )
+parser.add_argument( '--user_id', type = str, default = "1", help = 'User ID' )
+
 args = parser.parse_args()
+userID = args.user_id
 
 # Data for Y
 y = []
@@ -29,7 +32,7 @@ x = []
 
 f = parse( args.from_date ).strftime( '%s' ) if args.from_date != None else None
 e = parse( args.to_date ).strftime( '%s' ) if args.to_date != None else None
-l = Transaction.fetchChargeDateList( f, e )
+l = Transaction.fetchChargeDateList( userID, f, e )
 kk = l.keys()
 # Dates sorted by ASC
 kk.sort()

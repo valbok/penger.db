@@ -63,8 +63,12 @@ class Transaction( PersistentObject ):
     " @return (list)
     """
     @staticmethod
-    def fetchList( where = None, limit = None, offset = None, orderByDict = { "date": DB.ASC } ):
+    def fetchList( userID, where = None, limit = None, offset = None, orderByDict = { "date": DB.ASC } ):
         t = Transaction()
+        if where == None:
+            where = "user_id = '" + str( int( userID ) ) + "'"
+        else:
+            where = "user_id = '" + str( int( userID ) ) + "' AND " + where
 
         return t.fetchObjectList( where = where, limit = limit, offset = offset, orderByDict = orderByDict )
 
@@ -77,11 +81,11 @@ class Transaction( PersistentObject ):
     " @return (dict( ts: value ))
     """
     @staticmethod
-    def fetchChargeDateList( beginTS = None, endTS = None ):
+    def fetchChargeDateList( userID, beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = " WHERE payment < 0 "
+        where = " WHERE payment < 0 AND user_id = '" + str( int( userID ) ) + "'"
         if beginTS != None:
             where += " AND date >= " + str( beginTS )
 
@@ -107,11 +111,11 @@ class Transaction( PersistentObject ):
     " @return (dict( ts: value ))
     """
     @staticmethod
-    def fetchIncomeDateList( beginTS = None, endTS = None ):
+    def fetchIncomeDateList( userID, beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = " WHERE payment > 0 "
+        where = " WHERE payment > 0 AND user_id = '" + str( int( userID ) ) + "'"
         if beginTS != None:
             where += " AND date >= " + str( beginTS )
 
@@ -137,11 +141,11 @@ class Transaction( PersistentObject ):
     " @return (float)
     """
     @staticmethod
-    def fetchTotalIncome( beginTS = None, endTS = None ):
+    def fetchTotalIncome( userID, beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = " WHERE payment > 0 "
+        where = " WHERE payment > 0 AND user_id = '" + str( int( userID ) ) + "'"
         if beginTS != None:
             where += " AND date >= " + str( beginTS )
 
@@ -165,11 +169,11 @@ class Transaction( PersistentObject ):
     " @return (float)
     """
     @staticmethod
-    def fetchTotalCharges( beginTS = None, endTS = None ):
+    def fetchTotalCharges( userID, beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = " WHERE payment < 0 "
+        where = " WHERE payment < 0 AND user_id = '" + str( int( userID ) ) + "'"
         if beginTS != None:
             where += " AND date >= " + str( beginTS )
 
@@ -186,7 +190,7 @@ class Transaction( PersistentObject ):
         return abs( rows[0][0] )
 
     """
-    " Fetches total outcome
+    " Fetches total balance
     "
     " @param (int)
     " @param (int)
@@ -194,22 +198,16 @@ class Transaction( PersistentObject ):
     " @return (float)
     """
     @staticmethod
-    def fetchBalance( beginTS = None, endTS = None ):
+    def fetchBalance( userID, beginTS = None, endTS = None ):
         result = {}
         dTable = Transaction()._definition.table
 
-        where = None
+        where = " WHERE user_id = '" + str( int( userID ) ) + "'"
         if beginTS != None:
-            where = " date >= " + str( beginTS )
+            where += " AND date >= " + str( beginTS )
 
         if endTS != None:
-            where = " AND date <= " + str( endTS ) if where != None else " date <= " + str( endTS )
-
-        if where != None:
-            where = " WHERE " + where
-
-        if where == None:
-            where = ""
+            where += " AND date <= " + str( endTS )
 
         sql = "SELECT sum( payment ) as result FROM {} {}".format( dTable, where )
 
