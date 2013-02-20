@@ -64,7 +64,11 @@ class PersistentObject( object ):
 
         db = DB.get()
         cur = db.cursor()
-        cur.execute( sql )
+        try:
+            cur.execute( sql )
+        except Exception:
+            print "[SQL]: " + sql
+
         rows = cur.fetchall()
         fieldNames = [i[0] for i in cur.description]
         result = []
