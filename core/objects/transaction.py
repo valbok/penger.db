@@ -248,10 +248,9 @@ class Transaction( PersistentObject ):
         if level == 0:
             where += " AND description = '" + desc + "'"
         elif level == 1:
-            # 08.01
             desc = self.getDescriptionRegExp()
 
-            where += " AND description RLIKE '" + str( desc ) + "'"
+            where += " AND description RLIKE '" + desc + "'"
 
         if beginTS != None:
             where += " date >= " + str( beginTS )
@@ -259,8 +258,6 @@ class Transaction( PersistentObject ):
         if endTS != None:
             where += " AND date <= " + str( endTS )
 
-        #where += " AND hash != '" + hash + "'"
-        #print where
         result = self.fetchList( userID, where )
 
         return result
