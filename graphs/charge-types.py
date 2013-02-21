@@ -41,9 +41,9 @@ typeDict = \
 {
     'Food': ['KIWI', 'COOP', 'SPAR', 'REMA', 'EUROSPAR', 'ICA', 'EUROPRIS', 'JOKER', 'BUNNPRIS', 'MENY', 'LONG CHENG', 'ASIAN' ],
     'AES Rent': [ '5353\.10\.19756', '5353\.11\.04796' ],
-    'Rent': [ '6559\.10\.23831', 'Sj.mannsveien', 'GRYTESTRANDA', '6557\.10\.18467' ],
+    'Rent': [ '6559\.10\.23831', 'Sj.mannsveien', '6557\.10\.18467' ],
     'Cash': [ 'Sparebanken'],
-    'Kids and fun': [ 'BURGER KING', 'LEKELAND', 'SV.MMEHALL', 'BR-LEKER', 'ATLANTERHAVSPAR', 'BRIO', 'RINGO', 'MCDONALDS', 'HJEM-IS', '.LESUND KOMMUNE' ],
+    'Kids and fun': [ 'BURGER KING', 'LEKELAND', 'SV.MMEHALL', 'BR-LEKER', 'ATLANTERHAVSPAR', 'BRIO', 'RINGO', 'MCDONALDS', 'HJEM-IS', '.LESUND KOMMUNE', 'GRYTESTRANDA BA' ],
     'Health': [ 'TANNK', 'Lege', 'APOTEK', 'LEGESEN', 'SYKEHUSAPOTEKET', 'VITUSAPOTEK', 'VITA', 'SYKEHUS', 'POLIKLINIKK' ],
     'Car': [ 'AUTOSENTE', 'Terra Forsikring', 'YX', 'BILSERV', 'ESSO', 'STATOIL', 'TRAFIKKSKULE', 'UNO-X', 'TEMA', 'BUNKER', 'TRAFIKK', 'FJORD' ],
     'Alco': [ 'VINMONOPOLET' ],

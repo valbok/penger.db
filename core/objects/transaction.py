@@ -79,10 +79,10 @@ class Transaction( PersistentObject ):
     def fetchChargeListByDates( userID, beginTS = None, endTS = None, limit = None, offset = None, orderByDict = { "date": DB.ASC } ):
         where = "payment < 0 "
         if beginTS != None:
-            where = " AND date >= " + str( beginTS )
+            where += " AND date >= " + str( beginTS )
 
         if endTS != None:
-            tsw = " AND date <= " + str( endTS )
+            where += " AND date <= " + str( endTS )
 
         return Transaction().fetchList( userID, where, limit = limit, offset = offset, orderByDict = orderByDict )
 
@@ -253,7 +253,7 @@ class Transaction( PersistentObject ):
             where += " AND description RLIKE '" + desc + "'"
 
         if beginTS != None:
-            where += " date >= " + str( beginTS )
+            where += " AND date >= " + str( beginTS )
 
         if endTS != None:
             where += " AND date <= " + str( endTS )
@@ -379,9 +379,9 @@ class Transaction( PersistentObject ):
         desc = desc.replace( ' MOA SYD ', ' [[:alpha:]]* ' )
 
 
-        desc = re.sub( '.LESUND', r'[[:space:]*[[:alpha:]]*', desc )
+        desc = re.sub( '.LESUND', r'[[:space:]]*[[:alpha:]]*', desc )
         desc = re.sub( 'ALESUND', r'[[:alpha:]]*', desc )
-        desc = re.sub( '.lesund', r'[[:space:]*[[:alpha:]]*', desc )
+        desc = re.sub( '.lesund', r'[[:space:]]*[[:alpha:]]*', desc )
         desc = re.sub( 'VATNE', r'[[:alpha:]]*', desc )
         desc = re.sub( 'Vatne', r'[[:alpha:]]*', desc )
         desc = re.sub( 'SKODJE', r'[[:alpha:]]*', desc )
@@ -392,8 +392,8 @@ class Transaction( PersistentObject ):
         desc = re.sub( 'SYKKYLVEN', r'[[:alpha:]]*', desc )
         desc = re.sub( 'BRATTV.G', r'[[:alpha:]]*', desc )
         desc = re.sub( 'Brattv.g', r'[[:alpha:]]*', desc )
-        desc = re.sub( '.RSTA', r'[[:space:]*[[:alpha:]]*', desc )
-        desc = re.sub( '.rsta', r'[[:space:]*[[:alpha:]]*', desc )
+        desc = re.sub( '.RSTA', r'[[:space:]]*[[:alpha:]]*', desc )
+        desc = re.sub( '.rsta', r'[[:space:]]*[[:alpha:]]*', desc )
 
 
         desc = desc.replace( '.', '\.' )
