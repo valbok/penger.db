@@ -15,7 +15,7 @@ CREATE TABLE transaction (
   id int(11) NOT NULL auto_increment,
   date int(11) NOT NULL default '0',
   description varchar(255) default NULL,
-  payment float NOT NULL default '0',
+  payment decimal(10,2) NOT NULL default '0',
   user_id int(11) NOT NULL default '0',
   hash varchar(255) default NULL,
   PRIMARY KEY (id),

@@ -16,7 +16,7 @@ class Scandia( CsvImport ):
     " @return (list) List of processed objects
     " @note Transaction unsafe
     """
-    def process( self, userID ):
+    def process( self, userID, unique = True ):
         first = True
         result = []
         i = 0
@@ -40,7 +40,7 @@ class Scandia( CsvImport ):
 
             p = 0 - c if c > 0 else d
             t = Transaction( { 'user_id': userID, 'date': r[0], 'description': r[4], 'payment': str( p ) } )
-            if t.exists():
+            if unique and t.exists():
                 continue
 
             t.insert()

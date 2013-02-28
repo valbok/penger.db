@@ -16,7 +16,7 @@ class Sbm( CsvImport ):
     " @return (list) List of processed objects
     " @note Transaction unsafe
     """
-    def process( self, userID ):
+    def process( self, userID, unique = True ):
         first = True
         result = []
 
@@ -39,7 +39,7 @@ class Sbm( CsvImport ):
             desc = r[3]
 
             t = Transaction( { 'user_id': userID, 'date': date, 'description': desc, 'payment': str( b ) } )
-            if t.exists():
+            if unique and t.exists():
                 continue
 
             t.insert()
