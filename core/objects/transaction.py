@@ -170,8 +170,9 @@ class Transaction( PersistentObject ):
         cur = db.cursor()
         cur.execute( sql )
         rows = cur.fetchall()
+        result = rows[0][0]
 
-        return rows[0][0]
+        return result if result != None else 0
 
     """
     " Fetches total outcome
@@ -198,8 +199,9 @@ class Transaction( PersistentObject ):
         cur = db.cursor()
         cur.execute( sql )
         rows = cur.fetchall()
+        result = rows[0][0]
 
-        return abs( rows[0][0] )
+        return abs( result ) if result != None else 0
 
     """
     " Fetches total balance
@@ -274,6 +276,9 @@ class Transaction( PersistentObject ):
         desc = desc.replace( '*', '\\\*' )
         desc = desc.replace( "'", "\'" )
         desc = desc.replace( '"', '\"' )
+        desc = desc.replace( '-', '\-' )
+        desc = desc.replace( '(', '\\\(' )
+        desc = desc.replace( ')', '\\\)' )
 
         # 08.01
         desc = re.sub( '^[0-9][0-9]\.[0-9][0-9] ', r'[0-9]+.[0-9]+ ', desc )
@@ -369,32 +374,32 @@ class Transaction( PersistentObject ):
         desc = re.sub( ' [0-9]$', r' [0-9]+', desc )
 
 
-        desc = re.sub( '\*', r'\\\*', desc )
+        desc = re.sub( '\*', r'\\*', desc )
+
 
         desc = desc.replace( 'STORMOA', '[[:alpha:]]*' )
         desc = desc.replace( 'STORM ', '[[:alpha:]]* ' )
         desc = desc.replace( ' MOAVN ', ' [[:alpha:]]* ' )
         desc = desc.replace( ' LANGELANDSVN ', ' [[:alpha:]]* ' )
         desc = desc.replace( ' LANGELANDSVE ', ' [[:alpha:]]* ' )
-        desc = desc.replace( ' MOA SYD ', ' [[:alpha:]]* ' )
+        desc = desc.replace( ' MOA SYD ', ' [[:alpha:]]* [[:alpha:]]* ' )
 
 
-        desc = re.sub( '.LESUND', r'[[:space:]]*[[:alpha:]]*', desc )
-        desc = re.sub( 'ALESUND', r'[[:alpha:]]*', desc )
-        desc = re.sub( '.lesund', r'[[:space:]]*[[:alpha:]]*', desc )
+        desc = re.sub( '\b\wLESUND\b', r' [[:alpha:]]*', desc )
+        desc = re.sub( '\bALESUND\b', r'[[:alpha:]]*', desc )
+        desc = re.sub( '\wlesund\b', r' [[:alpha:]]*', desc )
         desc = re.sub( 'VATNE', r'[[:alpha:]]*', desc )
         desc = re.sub( 'Vatne', r'[[:alpha:]]*', desc )
         desc = re.sub( 'SKODJE', r'[[:alpha:]]*', desc )
         desc = re.sub( 'Skodje', r'[[:alpha:]]*', desc )
-        desc = re.sub( 'S.VIK', r'[[:alpha:]]*', desc )
-        desc = re.sub( 'S.vik', r'[[:alpha:]]*', desc )
+        desc = re.sub( '\bS\wVIK\b', r'[[:alpha:]]*', desc )
+        desc = re.sub( '\bS\wvik\b', r'[[:alpha:]]*', desc )
         desc = re.sub( 'Sykkylven', r'[[:alpha:]]*', desc )
         desc = re.sub( 'SYKKYLVEN', r'[[:alpha:]]*', desc )
-        desc = re.sub( 'BRATTV.G', r'[[:alpha:]]*', desc )
-        desc = re.sub( 'Brattv.g', r'[[:alpha:]]*', desc )
-        desc = re.sub( '.RSTA', r'[[:space:]]*[[:alpha:]]*', desc )
-        desc = re.sub( '.rsta', r'[[:space:]]*[[:alpha:]]*', desc )
-
+        desc = re.sub( '\bBRATTV\wG\b', r'[[:alpha:]]*', desc )
+        desc = re.sub( '\bBrattv\wg\b', r'[[:alpha:]]*', desc )
+        desc = re.sub( '\b\wRSTA\b', r'[[:space:]]*[[:alpha:]]*', desc )
+        desc = re.sub( '\b\wrsta\b', r'[[:space:]]*[[:alpha:]]*', desc )
 
         desc = desc.replace( '.', '\.' )
         desc = " ".join( desc.split() )
@@ -453,7 +458,7 @@ class Transaction( PersistentObject ):
             if tp == 0:
                 continue
 
-            percent = 100 * tp / totalCharges
+            percent = 100 * float( tp ) / totalCharges
 
             item = { 'id': i.attr( 'id' ),
                      'desc': desc,

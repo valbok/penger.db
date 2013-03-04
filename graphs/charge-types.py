@@ -39,23 +39,25 @@ if e != None:
 
 typeDict = \
 {
-    'Food': ['KIWI', 'COOP', 'SPAR', 'REMA', 'EUROSPAR', 'ICA', 'EUROPRIS', 'JOKER', 'BUNNPRIS', 'MENY', 'LONG CHENG', 'ASIAN' ],
-    'AES Rent': [ '5353\.10\.19756', '5353\.11\.04796' ],
-    'Rent': [ '6559\.10\.23831', 'Sj.mannsveien', '6557\.10\.18467' ],
-    'Cash': [ 'Sparebanken'],
-    'Kids and fun': [ 'BURGER KING', 'LEKELAND', 'SV.MMEHALL', 'BR-LEKER', 'ATLANTERHAVSPAR', 'BRIO', 'RINGO', 'MCDONALDS', 'HJEM-IS', '.LESUND KOMMUNE', 'GRYTESTRANDA BA' ],
-    'Health': [ 'TANNK', 'Lege', 'APOTEK', 'LEGESEN', 'SYKEHUSAPOTEKET', 'VITUSAPOTEK', 'VITA', 'SYKEHUS', 'POLIKLINIKK' ],
-    'Car': [ 'AUTOSENTE', 'Terra Forsikring', 'YX', 'BILSERV', 'ESSO', 'STATOIL', 'TRAFIKKSKULE', 'UNO-X', 'TEMA', 'BUNKER', 'TRAFIKK', 'FJORD' ],
-    'Alco': [ 'VINMONOPOLET' ],
-    'Mob and net': [ 'Telenor', 'TELE2',  'INTERNET' ],
-    'House and home devices': [ 'JULA', 'ELKJ.P', 'EXPERT', 'LEFDAL', 'JYSK', 'PLANTASJEN' ],
-    'Devices and comp': [ 'DATA', 'KOMPLETT.NO', 'JAPAN PHOTO' ],
+    'Food': [ 'FAVORITTEN', 'VADSETH', 'BEST', 'S\-LAG', 'PADMAX', 'MEGA', 'KIOSK AS', 'MAT', 'Rimi', 'KIWI', 'COOP', 'SPAR', 'REMA', 'EUROSPAR', 'ICA', 'EUROPRIS', 'JOKER', 'BUNNPRIS', 'MENY', 'LONG CHENG', 'ASIAN', 'JULEHUSET', 'KONDITORI' ],
+    'AES Rent': [ '5353\.10\.19756', '5353\.11\.04796', 'HESSAVEGEN'  ],
+    'Rent': [ '.konomisjefen', '6559\.10\.23831', 'Sj.mannsveien', '6557\.10\.18467' ],
+    'Cash': [ 'Sparebanken', 'NORDEA' ],
+    'Kids and fun': [ 'ATLANTERHAVSP', 'AGGI AS', 'PRINCESS', 'KID', 'GODTFRES', 'LEKER', 'BURGER KING', 'LEKELAND', 'SV.MMEHALL', 'BR-LEKER', 'ATLANTERHAVSPAR', 'BRIO', 'RINGO', 'MCDONALDS', 'HJEM-IS', '.LESUND KOMMUNE', 'GRYTESTRANDA BA', 'BUTGER KING' ],
+    'Health': [ 'GLITTER', 'LEGEKONTOR', 'TANNK', 'Lege', 'APOTEK', 'LEGESEN', 'SYKEHUSAPOTEKET', 'VITUSAPOTEK', 'VITA', 'SYKEHUS', 'POLIKLINIKK', 'LEGE' ],
+    'Car and transfers': [ 'JOKER VATNE', 'KLEIVANE', 'SHELL', 'SHELL/7\-ELEVEN', 'MF', 'MRTAXI', 'AUTOI', 'DEKKTEAM', 'ISS', 'BILLETT', 'SNARKJØP', 'BOMPENGE', 'Nettbuss', 'FJORD1', 'Fatlatunnelen', 'AUTOSENTE', 'Terra Forsikring', 'YX', 'BILSERV', 'ESSO', 'STATOIL', 'TRAFIKKSKULE', 'UNO-X', 'TEMA', 'BUNKER', 'TRAFIKK', 'FJORD', 'BRABILAS', 'TINGHUSET', 'BOMRINGEN', 'JANGAARD', 'Jangaard', 'STRAUMSBRUA' ],
+    'Alcohol': [ 'VINMONOPOLET' ],
+    'Mob and net': [ 'Telenor', 'TELE2',  'INTERNET', 'TELENOR' ],
+    'House and home devices': [ 'SKANDIA AUTOMATER AS', 'MEDIA', 'Sunnm.rspos', 'BOK \& PAPIR', 'JULA', 'ELKJ.P', 'EXPERT', 'LEFDAL', 'JYSK', 'PLANTASJEN', 'CLAS OHLSON' ],
+    'Devices and comp': [ 'DATA', 'KOMPLETT.NO', 'JAPAN PHOTO', 'ELITEFOTO' ],
     'Electricity': [ 'TAFJORD', 'NORDVEST' ],
     'Tren': [ 'Treningssenter' ],
-    'Clothes': [ 'H&M', 'CUBUS', 'B.RONGVI', 'MEGA', 'MANI', 'BABY', 'BARNAS', 'KAPPAHL', 'KREMMERHUSET', 'LINDEX', 'SKO', 'SKOPUNKTEN',  'KNUTEPUNKT' ],
+    'Clothes': [ 'VIVIKES', 'LINDEX', 'UTLENDINGSK', 'AARFLOT', 'BARNEMOTE', 'GINA', 'LOCATION', 'ELISABETH', 'VIC WOMAN', 'NAME IT', 'VILA', 'NILLE', 'LYSPUNKTET', 'VERO', 'FRETEX', 'CMYK', 'BAT AS', 'PLATOU', 'ANNES', 'KLONDIKE', 'MONARK', 'YOUNG', 'SUPER G','XXL', 'MORRIS', 'FOOTWEAR', 'KONIMIS', 'H&M', 'CUBUS', 'B\.RONGVI', 'MEGA', 'MANI', 'BABY', 'BARNAS', 'KAPPAHL', 'KREMMERHUSET', 'LINDEX', 'SKO', 'SKOPUNKTEN',  'KNUTEPUNKT' ],
     'Post': [ 'Post' ],
-    'Leisure': [ 'Hotel', 'BILLETTSERVICE', 'P-HOTELS', 'HOTELL', 'AKVARIET', 'TROLLSTIGEN', 'KAFE'],
-    'Transfers': [ 'DOROSHCHUK', 'OSTROVERSHENKO', 'OSTROVERSHENK' ]
+    'Leisure': [ 'NORWEGIAN', 'QUALITY AIRPORT', 'LUSTER', 'SAS', 'LOM', 'SPORTSHANDELEN', 'DUTY FREE', 'KAFETER', 'KR.MARHUSET', 'BAKERIET', 'AURMO DRIFT AS', 'TROLLSTIGEN', 'RESTAUR', 'SMAK', 'YRIS', 'GODTELAND', 'CARDLINE', 'SGS', 'KOKARSTEINEN', 'GODTELAND', 'EGON', 'TH\.BAKKENS', 'SERVICEST', 'J\.SLETTEDAL', 'JUGENDSTILSENTE', 'FJELLSTUA', 'Geiranger', 'STORDAL', 'BG\.KUNSTMUSEUM', 'GEIRANGER', 'RIGA','AVINOR', 'CZK', 'TANTE', 'Hotel', 'BILLETTSERVICE', 'P\-HOTELS', 'HOTELL', 'AKVARIET', 'TROLLSTIGEN', 'KAFE', 'SAS', 'AIRBALTIC', 'AIRPORT', 'BAGAZAS' ],
+    'Transfers': [ 'DOROSHCHUK', 'OSTROVERSHENKO', 'OSTROVERSHENK', 'TIL:', 'Gjemnes' ],
+    'Accounts': [ 'POLITISTASJONEN', 'POLITIDISTRIKT', 'Bankkort', 'VISA', 'FINN\.NO', 'Visa Classic', 'TRANS(ER)', 'TRANS', 'DEBETRENTER', 'Foreningen' ],
+    'Hobby': [ 'SMALL SIZE', 'FOTO', 'PAYPAL', 'HOSTING CENTER', 'FOTO\-REKLAME', 'STUDIEFORBUNDET', 'WWW\.HETZNER\.DE'  ]
 
 }
 typePercentDict = {}
