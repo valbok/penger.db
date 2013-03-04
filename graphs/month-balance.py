@@ -47,7 +47,7 @@ for i in range( 1, 13 ):
     monthes.append( mname )
     monthBalanceList.append( float( totalIncome - totalCharges ) )
 
-fig = plt.figure( "Balance" )
+fig = plt.figure( "Balance for " + str( year ) + " year" )
 ax = fig.add_subplot( 111 )
 ax.plot( range( 0, 13 ), 'r' )
 ax.grid( True )
@@ -57,7 +57,7 @@ ind = np.arange( N )
 
 def hex_to_rgb(value):
     value = value.lstrip( '#' )
-    lv = len(value)
+    lv = len( value )
 
     return tuple( float( int( value[i : i + lv/3], 16 ) ) / 240 for i in range( 0, lv, lv/3))
 
@@ -70,7 +70,7 @@ rects1 = plt.bar(
             )
 
 plt.ylabel( 'NOK' )
-plt.xlabel( str( year ) + " = " + str( totalBalance ) )
+plt.xlabel( "Total balance for this year = " + str( totalBalance ) )
 plt.xticks( ind + width - 0.5, monthes )
 
 def autolabel( rects ):
@@ -83,7 +83,7 @@ def autolabel( rects ):
 
         plt.text(
             rect.get_x() + rect.get_width() / 2.,
-            0.5 * height,
+            1.01 * height if height > 0 else height - 0.02 * height,
             '%s' % float( height ),
             ha='center',
             color = hex_to_rgb( '#333333' ),
