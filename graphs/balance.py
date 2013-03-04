@@ -56,7 +56,7 @@ for i in kout:
     d = datetime.datetime.fromtimestamp( i ).strftime( "%Y-%m-%d" )
     print d + " = " + str( out[i] )
     ox.append( d )
-    oy.append( out[i] )
+    oy.append( 0-out[i] )
     if i not in inc:
         inc[i] = 0
 
