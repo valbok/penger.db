@@ -21,7 +21,7 @@ from core import *
 from init import *
 
 parser = argparse.ArgumentParser( description = 'Filters' )
-parser.add_argument( '--year', type = int, default = None, help = 'Date from' )
+parser.add_argument( '--year', type = int, default = None, help = 'Year' )
 parser.add_argument( '--user_id', type = str, default = "1", help = 'User ID' )
 
 args = parser.parse_args()
@@ -41,15 +41,16 @@ for i in range( 1, 13 ):
     totalCharges = Transaction.fetchTotalCharges( userID, f, e )
     totalIncome = Transaction.fetchTotalIncome( userID, f, e )
     mname = calendar.month_name[i]
-    r = "{0:.2f}".format( totalIncome - totalCharges )
+    r = totalIncome - totalCharges
     totalBalance += float( r )
-    print mname + ": " + r
+    print mname + ": " + "{0:.2f}".format( totalIncome - totalCharges )
     monthes.append( mname )
-    monthBalanceList.append( float( totalIncome - totalCharges ) )
+    monthBalanceList.append( float( r ) )
+
+print "Total = " + str( totalBalance )
 
 fig = plt.figure( "Balance for " + str( year ) + " year" )
 ax = fig.add_subplot( 111 )
-ax.plot( range( 0, 13 ), 'r' )
 ax.grid( True )
 width = 1#0.35
 N = len( monthBalanceList )
