@@ -74,10 +74,10 @@ def format_date( xx, pos = None ):
 
 fig = plt.figure( "Balance" )
 ax = fig.add_subplot( 111 )
-p1, = ax.plot( oy )
-p2, = ax.plot( iy )
-p3, = ax.plot( balanceList )
-ax.legend( [p3, p2, p1], ["Balance", "Income", "Charge"] )
+p1, = ax.plot( oy, '.-',color = 'r' )
+p2, = ax.plot( iy, '.-', color = 'g' )
+p3, = ax.plot( balanceList, color = 'b' )
+ax.legend( [p3, p2, p1], ["Balance", "Income", "Charges"] )
 
 ax.set_title( "{0:.2f}".format( totalIncome ) + " - " + "{0:.2f}".format( totalCharges ) + " = " + "{0:.2f}".format( totalIncome - totalCharges ) + ' NOK' )
 ax.grid( True )

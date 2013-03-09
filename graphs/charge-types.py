@@ -40,19 +40,19 @@ if e != None:
 typeDict = \
 {
     'Food': [ 'FAVORITTEN', 'VADSETH', 'BEST', 'S\-LAG', 'PADMAX', 'MEGA', 'KIOSK AS', 'MAT', 'Rimi', 'KIWI', 'COOP', 'SPAR', 'REMA', 'EUROSPAR', 'ICA', 'EUROPRIS', 'JOKER', 'BUNNPRIS', 'MENY', 'LONG CHENG', 'ASIAN', 'JULEHUSET', 'KONDITORI' ],
-    'AES Rent': [ '5353\.10\.19756', '5353\.11\.04796', 'HESSAVEGEN'  ],
+    'AES Rent': [ '5353\.10\.19756', '5353\.11\.04796', 'HESSAVEGEN' ],
     'Rent': [ '.konomisjefen', '6559\.10\.23831', 'Sj.mannsveien', '6557\.10\.18467' ],
     'Cash': [ 'Sparebanken', 'NORDEA' ],
     'Kids and fun': [ 'ATLANTERHAVSP', 'AGGI AS', 'PRINCESS', 'KID', 'GODTFRES', 'LEKER', 'BURGER KING', 'LEKELAND', 'SV.MMEHALL', 'BR-LEKER', 'ATLANTERHAVSPAR', 'BRIO', 'RINGO', 'MCDONALDS', 'HJEM-IS', '.LESUND KOMMUNE', 'GRYTESTRANDA BA', 'BUTGER KING' ],
     'Health': [ 'GLITTER', 'LEGEKONTOR', 'TANNK', 'Lege', 'APOTEK', 'LEGESEN', 'SYKEHUSAPOTEKET', 'VITUSAPOTEK', 'VITA', 'SYKEHUS', 'POLIKLINIKK', 'LEGE' ],
-    'Car and transfers': [ 'JOKER VATNE', 'KLEIVANE', 'SHELL', 'SHELL/7\-ELEVEN', 'MF', 'MRTAXI', 'AUTOI', 'DEKKTEAM', 'ISS', 'BILLETT', 'SNARKJØP', 'BOMPENGE', 'Nettbuss', 'FJORD1', 'Fatlatunnelen', 'AUTOSENTE', 'Terra Forsikring', 'YX', 'BILSERV', 'ESSO', 'STATOIL', 'TRAFIKKSKULE', 'UNO-X', 'TEMA', 'BUNKER', 'TRAFIKK', 'FJORD', 'BRABILAS', 'TINGHUSET', 'BOMRINGEN', 'JANGAARD', 'Jangaard', 'STRAUMSBRUA' ],
+    'Car and transfers': [ 'TOLLREGION', 'JOKER VATNE', 'KLEIVANE', 'SHELL', 'SHELL/7\-ELEVEN', 'MF', 'MRTAXI', 'AUTOI', 'DEKKTEAM', 'ISS', 'BILLETT', 'SNARKJØP', 'BOMPENGE', 'Nettbuss', 'FJORD1', 'Fatlatunnelen', 'AUTOSENTE', 'Terra Forsikring', 'YX', 'BILSERV', 'ESSO', 'STATOIL', 'TRAFIKKSKULE', 'UNO-X', 'TEMA', 'BUNKER', 'TRAFIKK', 'FJORD', 'BRABILAS', 'TINGHUSET', 'BOMRINGEN', 'JANGAARD', 'Jangaard', 'STRAUMSBRUA' ],
     'Alcohol': [ 'VINMONOPOLET' ],
     'Mob and net': [ 'Telenor', 'TELE2',  'INTERNET', 'TELENOR' ],
     'House and home devices': [ 'SKANDIA AUTOMATER AS', 'MEDIA', 'Sunnm.rspos', 'BOK \& PAPIR', 'JULA', 'ELKJ.P', 'EXPERT', 'LEFDAL', 'JYSK', 'PLANTASJEN', 'CLAS OHLSON' ],
     'Devices and comp': [ 'DATA', 'KOMPLETT.NO', 'JAPAN PHOTO', 'ELITEFOTO' ],
     'Electricity': [ 'TAFJORD', 'NORDVEST' ],
     'Tren': [ 'Treningssenter' ],
-    'Clothes': [ 'VIVIKES', 'LINDEX', 'UTLENDINGSK', 'AARFLOT', 'BARNEMOTE', 'GINA', 'LOCATION', 'ELISABETH', 'VIC WOMAN', 'NAME IT', 'VILA', 'NILLE', 'LYSPUNKTET', 'VERO', 'FRETEX', 'CMYK', 'BAT AS', 'PLATOU', 'ANNES', 'KLONDIKE', 'MONARK', 'YOUNG', 'SUPER G','XXL', 'MORRIS', 'FOOTWEAR', 'KONIMIS', 'H&M', 'CUBUS', 'B\.RONGVI', 'MEGA', 'MANI', 'BABY', 'BARNAS', 'KAPPAHL', 'KREMMERHUSET', 'LINDEX', 'SKO', 'SKOPUNKTEN',  'KNUTEPUNKT' ],
+    'Clothes': [ 'LOCATION', 'VIVIKES', 'LINDEX', 'UTLENDINGSK', 'AARFLOT', 'BARNEMOTE', 'GINA', 'LOCATION', 'ELISABETH', 'VIC WOMAN', 'NAME IT', 'VILA', 'NILLE', 'LYSPUNKTET', 'VERO', 'FRETEX', 'CMYK', 'BAT AS', 'PLATOU', 'ANNES', 'KLONDIKE', 'MONARK', 'YOUNG', 'SUPER G','XXL', 'MORRIS', 'FOOTWEAR', 'KONIMIS', 'H&M', 'CUBUS', 'B\.RONGVI', 'MEGA', 'MANI', 'BABY', 'BARNAS', 'KAPPAHL', 'KREMMERHUSET', 'LINDEX', 'SKO', 'SKOPUNKTEN',  'KNUTEPUNKT' ],
     'Post': [ 'Post' ],
     'Leisure': [ 'NORWEGIAN', 'QUALITY AIRPORT', 'LUSTER', 'SAS', 'LOM', 'SPORTSHANDELEN', 'DUTY FREE', 'KAFETER', 'KR.MARHUSET', 'BAKERIET', 'AURMO DRIFT AS', 'TROLLSTIGEN', 'RESTAUR', 'SMAK', 'YRIS', 'GODTELAND', 'CARDLINE', 'SGS', 'KOKARSTEINEN', 'GODTELAND', 'EGON', 'TH\.BAKKENS', 'SERVICEST', 'J\.SLETTEDAL', 'JUGENDSTILSENTE', 'FJELLSTUA', 'Geiranger', 'STORDAL', 'BG\.KUNSTMUSEUM', 'GEIRANGER', 'RIGA','AVINOR', 'CZK', 'TANTE', 'Hotel', 'BILLETTSERVICE', 'P\-HOTELS', 'HOTELL', 'AKVARIET', 'TROLLSTIGEN', 'KAFE', 'SAS', 'AIRBALTIC', 'AIRPORT', 'BAGAZAS' ],
     'Transfers': [ 'DOROSHCHUK', 'OSTROVERSHENKO', 'OSTROVERSHENK', 'TIL:', 'Gjemnes' ],
@@ -104,13 +104,17 @@ labelList = []
 totalP = 0
 totalA = 0
 for i in result:
+    if i['percent'] == 0:
+	continue
+
     totalP += i['percent']
     totalA = i['total_amount']
     percentList.append( i['percent'] )
     labelList.append( i['type'] + ": " + str( i["amount"] ) )
 
-percentList.append( 100 - totalP )
-labelList.append( 'Unknown' )
+if ( 100 - totalP ) > 0:
+    percentList.append( 100 - totalP )
+    labelList.append( 'Unknown' )
 
 # make a square figure and axes
 figure( "Outcome", figsize = ( 6,6 ) )
